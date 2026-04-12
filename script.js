@@ -102,7 +102,10 @@
   // ============================================================
   // MAGIC QUILL TYPEWRITER
   // ============================================================
+  const _twActive = new Set();
   function typeWrite(el, onDone) {
+    if (_twActive.has(el)) return;
+    _twActive.add(el);
     const text = el.getAttribute('data-text') || '';
     el.textContent = ''; el.classList.remove('done');
     let i = 0;
@@ -116,6 +119,7 @@
         if (Math.random() > 0.4) createFx(cr.right + 2, cr.top + cr.height * 0.3);
         i++; setTimeout(next, 35 + Math.random() * 45);
       } else {
+        _twActive.delete(el);
         setTimeout(() => { el.classList.add('done'); if (onDone) onDone(); }, 400);
       }
     }
@@ -231,6 +235,7 @@
       document.querySelectorAll('[data-stagger] > .visible').forEach(el => el.classList.remove('visible'));
 
       // Reset typewriters
+      _twActive.clear();
       document.querySelectorAll('.typewriter-scroll').forEach(el => { el.textContent = ''; el.classList.remove('done'); });
       if (typeName) { typeName.textContent = ''; typeName.classList.remove('done'); }
       if (typeTagline) { typeTagline.textContent = ''; typeTagline.classList.remove('done'); }
@@ -289,6 +294,7 @@
 
     // Reset typewriter titles in this section
     section.querySelectorAll('.typewriter-scroll').forEach(el => {
+      _twActive.delete(el);
       el.textContent = '';
       el.classList.remove('done');
     });
