@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Karyna Tariq</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --text-muted: #555;
+      --accent: #6c3ce0;
+      --accent-gold: #b8860b;
+      --border: #e0e0e0;
+      --section-bg: #f8f7ff;
+    }
+
+    @media print {
+      body { font-size: 10pt; }
+      .resume { box-shadow: none; max-width: 100%; padding: 0; }
+      .no-print { display: none !important; }
+      a { color: var(--text) !important; text-decoration: none !important; }
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f0f0f5;
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(12px);
+    }
+    .top-bar a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .top-bar__back { opacity: 0.7; }
+    .top-bar__back:hover { opacity: 1; }
+    .top-bar__download {
+      background: var(--accent);
+      font-weight: 500;
+    }
+    .top-bar__download:hover { background: #5a2dc5; }
+
+    .resume {
+      max-width: 850px;
+      margin: 80px auto 40px;
+      background: var(--bg);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      padding: 48px 56px;
+    }
+
+    /* Header */
+    .header { text-align: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--accent); }
+    .header__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .header__title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .header__contact {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .header__contact a { color: var(--accent); text-decoration: none; }
+    .header__contact a:hover { text-decoration: underline; }
+    .header__contact span::before { content: '•'; margin-right: 0; }
+    .header__contact span:first-child::before { content: ''; margin: 0; }
+
+    /* Sections */
+    .section { margin-bottom: 24px; }
+    .section__title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    /* Summary */
+    .summary {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Experience */
+    .job { margin-bottom: 20px; }
+    .job:last-child { margin-bottom: 0; }
+    .job__header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 2px; }
+    .job__role { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .job__company { color: var(--accent); }
+    .job__date { font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+    .job__tech { font-size: 0.75rem; color: var(--text-muted); font-style: italic; margin-bottom: 6px; }
+    .job__list { list-style: none; padding: 0; }
+    .job__list li {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 4px;
+      line-height: 1.6;
+    }
+    .job__list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .skill-group__title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .skill-group__items {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Certifications */
+    .cert { margin-bottom: 8px; }
+    .cert__name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .cert__issuer { font-size: 0.8rem; color: var(--text-muted); }
+    .cert__date { font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+    /* Projects */
+    .project { margin-bottom: 12px; }
+    .project__name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .project__desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .resume { padding: 32px 24px; margin: 70px 8px 24px; }
+      .header__name { font-size: 1.8rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .job__header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar no-print">
+    <a href="index.html" class="top-bar__back">← Back to Portfolio</a>
+    <a href="javascript:window.print()" class="top-bar__download">⬇ Download PDF</a>
+  </div>
+
+  <div class="resume">
+
+    <!-- HEADER -->
+    <header class="header">
+      <h1 class="header__name">Karyna Tariq</h1>
+      <p class="header__title">Senior Software Engineer — Backend & Cloud Architecture</p>
+      <div class="header__contact">
+        <span>Italy (born in Kiev, Ukraine)</span>
+        <span><a href="mailto:karynatariq@gmail.com">karynatariq@gmail.com</a></span>
+        <span><a href="https://www.linkedin.com/in/karyna-tariq/">LinkedIn</a></span>
+        <span><a href="https://github.com/karynatariq">GitHub</a></span>
+        <span><a href="https://karynatariq.github.io/portfolio">Portfolio</a></span>
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <div class="section">
+      <h2 class="section__title">Summary</h2>
+      <p class="summary">
+        Software Engineer with <strong>4+ years</strong> of proven track record building innovative backend solutions
+        and leading teams in agile environments. Skilled in JavaScript, Node.js, Python, and AWS with a strong focus
+        on delivering scalable, high-performance applications. Currently architecting multi-tenant platforms handling
+        10K+ daily orders. Passionate about clean architecture, operational excellence, and shipping reliable products
+        in fast-paced startup environments.
+      </p>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+      <h2 class="section__title">Experience</h2>
+
+      <div class="job">
+        <div class="job__header">
+          <div class="job__role">Senior Software Engineer — <span class="job__company">Skupreme</span></div>
+          <div class="job__date">Jan 2021 — Present</div>
+        </div>
+        <div class="job__tech">JavaScript, Node.js, Express.js, SQL, MongoDB, AWS, Serverless, Microservices</div>
+        <ul class="job__list">
+          <li>Developed a dynamic multi-tenant architecture, reducing integration time by 25% and boosting platform reliability by 20%</li>
+          <li>Implemented advanced backend API optimizations, reducing response times by 40% and increasing concurrent user capacity by 25%</li>
+          <li>Engineered scalable microservices architecture, cutting deployment times by 50% while ensuring uninterrupted service during updates</li>
+          <li>Built automated functions handling 10K+ daily orders and synchronized inventory across multiple platforms</li>
+          <li>Orchestrated 3rd party integrations with major e-commerce marketplaces, enabling seamless order sync, catalog management, and real-time inventory updates</li>
+          <li>Integrated address validation APIs, reducing errors by 30% and improving shipping accuracy by 15%</li>
+          <li>Led client collaboration, conducted demos, and addressed challenges — achieving 30% increase in client satisfaction</li>
+          <li>Mentored junior engineers, fostering a culture of innovation and excellence across the organization</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job__header">
+          <div class="job__role">Backend Engineer — <span class="job__company">Freelancer</span></div>
+          <div class="job__date">Jan 2021 — Jul 2021</div>
+        </div>
+        <div class="job__tech">JavaScript, Node.js, Express.js, MongoDB, Firebase, AWS Lambda, EC2</div>
+        <ul class="job__list">
+          <li>Maintained consistent 5-star ratings for project deliverables across 10+ diverse projects</li>
+          <li>Delivered tailored backend solutions across diverse industries, ensuring optimal performance</li>
+          <li>Integrated third-party APIs and cloud services including AWS Lambda, EC2, and NAT gateways</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+      <h2 class="section__title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group__title">Backend & APIs</div>
+          <div class="skill-group__items">Node.js, Express.js, Python, FastAPI, Java, REST APIs, GraphQL</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group__title">Databases</div>
+          <div class="skill-group__items">MongoDB, PostgreSQL, DynamoDB, Firebase, Elastic Search</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group__title">Cloud & DevOps</div>
+          <div class="skill-group__items">AWS (Lambda, EC2, S3), GCP, Serverless, CI/CD</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group__title">Architecture</div>
+          <div class="skill-group__items">Microservices, Multi-Tenant, Infrastructure as Code, Cron Schedulers</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group__title">Languages & Tools</div>
+          <div class="skill-group__items">JavaScript, TypeScript, Python, Java, Git, NPM, Postman</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group__title">Leadership</div>
+          <div class="skill-group__items">Agile/Scrum, Team Leadership, Mentorship, Code Review, Client Collaboration</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY PROJECTS -->
+    <div class="section">
+      <h2 class="section__title">Key Projects</h2>
+
+      <div class="project">
+        <div class="project__name">E-Commerce Automation Platform</div>
+        <div class="project__desc">Scalable multi-tenant platform with full CRUD operations, inventory sync across multiple platforms, and automated order processing handling 10K+ daily orders. Built analytics dashboards with predictive algorithms for demand forecasting.</div>
+      </div>
+
+      <div class="project">
+        <div class="project__name">Marketplace Order & Catalog Sync</div>
+        <div class="project__desc">Real-time order synchronization engine connecting Amazon, Shopify, and eBay into a unified backend. Automated catalog listing, inventory updates, and order routing across platforms with event-driven pipelines.</div>
+      </div>
+
+      <div class="project">
+        <div class="project__name">Multi-Tenant Backend Architecture</div>
+        <div class="project__desc">Dynamic multi-tenant architecture reducing integration time by 25%, featuring 3rd party marketplace integrations, address validation APIs, and scalable microservices with automated CI/CD pipelines.</div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="section">
+      <h2 class="section__title">Certifications</h2>
+
+      <div class="cert">
+        <span class="cert__name">Foundations: Data, Data, Everywhere</span> —
+        <span class="cert__issuer">Google</span>
+        <span class="cert__date">(2024)</span>
+      </div>
+
+      <div class="cert">
+        <span class="cert__name">M121: The MongoDB Aggregation Framework</span> —
+        <span class="cert__issuer">MongoDB University</span>
+        <span class="cert__date">(2021)</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
